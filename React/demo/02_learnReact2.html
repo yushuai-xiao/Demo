@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+  <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+  <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+  <div id="container"></div>
+
+  <script type="text/babel">
+    class Demo extends React.Component{
+      state = {title:'Learn React'}
+      changeTitle = (e) =>{
+        this.setState({title:'Learn Vue'})
+      }
+      render(){
+        const {title} = this.state
+        return(
+          <div className="container">
+            <h1>{title}</h1>
+            <button onClick={this.changeTitle}>切换标题</button>  
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<Demo/>,document.getElementById('container'))
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 浅拷贝一：Object.assign(),如果改变对象中的引用对象的值，两个都会发生改变
+    var obj = {
+      age:18,
+      nature:['smart','good'],
+      names:{
+        name1:"xs",
+        name2:'xj'
+      },
+      love:function(){
+        console.log('xj is a great girl');
+      }
+    }
+    var newObj = Object.assign({},obj)
+    obj.names.name1 = 'test'
+
+    // console.log(obj);
+    // console.log(newObj);
+    // 浅拷贝二：Array.slice(), 如果改变对象中的引用对象的值，两个都会发生改变
+    // const fxArr = ['one','two','three',{name:'xs'}]
+    // const fxArrs = fxArr.slice(0)
+    // fxArr[3].name = '2'
+    // console.log(fxArr);
+    // console.log(fxArrs);
+
+    // 浅拷贝三：concat(),如果改变对象中的引用对象的值，两个都会发生改变
+    // const fxArr = ["One", "Two", "Three",{name:'xs'}]
+    // const fxArrs = fxArr.concat()
+    // fxArrs[1] = "love";
+    // fxArr[3].name = '2'
+    // console.log(fxArr) // ["One", "Two", "Three",{name:'2'}]
+    // console.log(fxArrs) // ["One", "love", "Three",{name:'2'}]
+
+    // 浅拷贝四：扩展运算符
+    const fxArr = ["One", "Two", "Three",{name:'xs'}]
+    const fxArrs = [...fxArr]
+    fxArr[3].name = '2'
+    console.log(fxArr) // ["One", "Two", "Three",{name:'2'}]
+    console.log(fxArrs) // ["One", "love", "Three",{name:'2'}]
+  </script>
+</body>
+</html>

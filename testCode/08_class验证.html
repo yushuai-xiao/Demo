@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // class Student{
+    //   constructor(name,age,height){
+    //     this.name = name
+    //     this.age = age
+    //     this.height = height
+    //   }
+
+    //   eat(){
+    //     console.log('eating........')
+    //   }
+
+    //   play(){
+    //     console.log('play..........')
+    //   }
+
+    //   study(){
+    //     console.log('studying......')
+    //   }
+
+    //   a = 1
+    // }
+
+    function Student(name,age,height){
+      this.name = name 
+      this.age = age
+      this.height = height
+
+      this.eat = function(){
+        console.log('eating........')
+      }
+
+      this.play = function(){
+        console.log('play..........')
+      }
+
+      this.study = function(){
+        console.log('studying......')
+      }
+
+    }
+
+    var s = new Student('zs',18,1.88)
+    s.play()
+    console.log(s)
+  </script>
+</body>
+</html>

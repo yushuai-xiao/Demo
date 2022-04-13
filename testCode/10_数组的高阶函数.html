@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    let arr = [1,2,3,4,5,6]
+ 
+    console.log(arr)
+    
+    // filter不会修改原数组
+    let newArr = arr.filter((value,index) => {
+      return value > 3
+    })
+
+    let newArr1 = ['1','2','3'].map(parseInt)
+    // map不会修改原数组
+    let newArr5 = arr.map((value,index) => {
+      return value * 2
+    })
+    
+    // console.log('原数组',arr,'新数组：',newArr)
+    console.log(newArr1)
+
+  </script>
+</body>
+</html>

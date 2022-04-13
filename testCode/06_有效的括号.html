@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // '{([])}'
+    // s = '{([])}'
+    const isValid = function(s){
+      if(s.length % 2 !==0 ) return false
+      let strArr = []
+      for(let i=0;i<s.length;i++){
+        if(s[i] === '(' || s[i] === '{' || s[i] === '['){
+          strArr.push(s[i])
+        }else{
+            if( (s[i] === ')'  && strArr[strArr.length-1] === "(") || 
+                (s[i] === '}'  && strArr[strArr.length-1] === "{") ||
+                (s[i] === ']'  && strArr[strArr.length-1] === "[")
+            ){
+              strArr.pop()
+            }else{
+              return false
+            }
+        }
+      }
+      return strArr.length === 0
+    }
+    // isValid('{([])}')
+    console.log(isValid('{([)}'));
+  </script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      padding: 5px
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <!-- This element's contents will be replaced with your component. -->
+  </div>
+  <script src="https://cdn.bootcdn.net/ajax/libs/react/16.13.1/umd/react.production.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.13.1/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/babel-standalone/7.0.0-beta.3/babel.min.js"></script>
+
+  <script type="text/babel">
+    class ProductCategoryRow extends React.Component {
+      render() {
+        const category = this.props.category;
+        return (
+          <tr>
+            <th colSpan="2">
+              {category}
+            </th>
+          </tr>
+        );
+      }
+    }
+    class Student extends React.Component{
+      constructor(props){
+        super(props)
+        this.state = {title : 'Learn React'}
+      }
+      render(){
+        const {title} = this.state
+        return (
+          <div>
+            <h1>{title}</h1>  
+          </div>
+        )
+      }
+    }
+    class ProductRow extends React.Component {
+      render() {
+        const product = this.props.product;
+        const name = product.stocked ?
+          product.name :
+          <span style={{ color: 'red' }}>
+            {product.name}
+          </span>;
+
+        return (
+          <tr>
+            <td>{name}</td>
+            <td>{product.price}</td>
+          </tr>
+        );
+      }
+    }
+
+    class ProductTable extends React.Component {
+      render() {
+        const filterText = this.props.filterText;
+        const inStockOnly = this.props.inStockOnly;
+
+        const rows = [];
+        let lastCategory = null;
+
+        this.props.products.forEach((product) => {
+          if (product.name.indexOf(filterText) === -1) {
+            return;
+          }
+          if (inStockOnly && !product.stocked) {
+            return;
+          }
+          if (product.category !== lastCategory) {
+            rows.push(
+              <ProductCategoryRow
+                category={product.category}
+                key={product.category} />
+            );
+          }
+          rows.push(
+            <ProductRow
+              product={product}
+              key={product.name}
+            />
+          );
+          lastCategory = product.category;
+        });
+
+        return (
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </table>
+        );
+      }
+    }
+
+    class SearchBar extends React.Component {
+      render() {
+        const filterText = this.props.filterText;
+        const inStockOnly = this.props.inStockOnly;
+
+        return (
+          <form>
+            <input
+              type="text"
+              placeholder="Search..."
+              value={filterText} />
+            <p>
+              <input
+                type="checkbox"
+                checked={inStockOnly} />
+              {' '}
+              Only show products in stock
+            </p>
+          </form>
+        );
+      }
+    }
+
+    class FilterableProductTable extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          filterText: '',
+          inStockOnly: false
+        };
+      }
+
+      render() {
+        return (
+          <div>
+            <SearchBar
+              filterText={this.state.filterText}
+              inStockOnly={this.state.inStockOnly}
+            />
+            <ProductTable
+              products={this.props.products}
+              filterText={this.state.filterText}
+              inStockOnly={this.state.inStockOnly}
+            />
+          </div>
+        );
+      }
+    }
+
+
+    const PRODUCTS = [
+      { category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football' },
+      { category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball' },
+      { category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball' },
+      { category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch' },
+      { category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5' },
+      { category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7' }
+    ];
+
+    ReactDOM.render(
+      <FilterableProductTable products={PRODUCTS} />,
+      document.getElementById('container')
+    );
+
+  </script>
+</body>
+
+</html>

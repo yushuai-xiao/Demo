@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 单文件上传 -->
+<input type="file" id="file">
+<!-- 多文件上传 -->
+<input type="file" id="files" multiple>
+<!-- 最简单的下载方式，download属性告诉浏览器要进行文件的下载 -->
+<a href="http://127.0.0.1:3000/download" download="">下载</a>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.26.0/axios.min.js"></script>
+
+<script>
+  const file = document.getElementById('file')
+const files = document.getElementById('files')
+
+axios.defaults.baseURL = 'http://127.0.0.1:3000'
+// 单文件上传
+file.addEventListener('change', async (e) => {
+    const formDate = new FormData()
+    // 键值对，key,value   键为file, 值为文件
+    formDate.append("file", e.target.files[0])
+    const {data: res} = await axios.post("/file", formDate, {
+        // 因为axios默认的Content-Type 为json，所以需要修改
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    })
+    console.log(res);
+})
+// 多文件上传
+files.addEventListener('change', async (e) => {
+    const formDate = new FormData()
+    const files = e.target.files
+    // 我不知道为什么不能用forEach
+    for(let i = 0; i < files.length; i++){
+        formDate.append('files', files[i])
+    }
+    const {data: res} = await axios.post("/files", formDate, {
+        // 因为axios默认的Content-Type 为json，所以需要修改
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    })
+    console.log(res);
+})
+</script>
+</body>
+</html>
