@@ -2,16 +2,21 @@
   <div id="app">
     <img src="./assets/logo.png">
     <HelloWorld/>
+    <upload1/>
+    
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld'
+import Upload1 from './components/upload1.vue'
+import Upload from './components/upload1.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    Upload1
   }
 }
 </script>

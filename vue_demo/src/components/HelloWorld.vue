@@ -27,7 +27,7 @@ export default {
   name: "HelloWorld",
   methods: {
     handleClick(row) {
-      console.log(row);
+      // console.log(row);
     },
   },
 
