@@ -1,0 +1,27 @@
+// 导入
+function importFile(param) {
+  let fileObj = param.file; // 相当于input里取得的files
+  let fd = new FormData(); // FormData 对象
+  fd.append('file', fileObj); // 文件对象
+  equipImport(fd).then(res => {
+    if (res.code === 200) {
+      proxy.$modal.msgSuccess("导入成功");
+      equipListQry();
+    } else {
+      proxy.$modal.msgError("导入失败");
+    }
+  })
+}
+
+
+// 导入
+export function equipImport(formData) {
+    return request({
+        url: '/system/deviceMonitor/importDeviceExcel',
+        method: 'post',
+        data: formData,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}

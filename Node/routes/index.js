@@ -4,6 +4,8 @@ const multer = require('multer')
 
 const path = require('path')
 const fs = require('fs')
+
+const nodeXlsx = require('node-xlsx')
 /* GET home page. */
 // router.get('/', function(req, res, next) {
 //   res.render('index', { title: 'Express' });
@@ -26,12 +28,28 @@ const storage =multer.diskStorage({
 const upload = multer({
   storage
 })
+router.get('/:id',(req,res) => {
+  console.log(req)
+  res.setHeader("Access-Control-Allow-Origin", "*"); 
+  res.end('lafsfs')
+})
 
+router.post('/file/upload',upload.single('file'),(req,res,next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*"); 
+  const ePath = path.resolve(__dirname,'../assets/uploads',req.file.originalname)
+  console.log(ePath)
+  const ex1 = nodeXlsx.parse(ePath)
+
+  let excel_content = ex1[0].data
+  console.log(excel_content)
+  res.send('lalla')
+})
 
 // 单文件上传接口
 router.post('/file',upload.single('file'),(req,res,next) => {
   console.log(req.file)
   res.setHeader("Access-Control-Allow-Origin", "*"); 
+  res.header("Access-Control-Allow-Methods", "DELETE,PUT,POST,GET,OPTIONS");
   res.send({
     downloadUrl:'yunyoujun.png'
   })
